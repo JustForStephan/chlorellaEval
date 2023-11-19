@@ -10,6 +10,6 @@
 
   "constants1": {"current_0": 0.000974,"average": 0.01, "current_average": 0.0000974},
   "constants2": {"current_0": 0.00206, "average":  0.05, "current_average":  0.000103},
-  "running_time_training": 100000,
+  "running_time_training": 5000,
   "etha": 0.000001
 }

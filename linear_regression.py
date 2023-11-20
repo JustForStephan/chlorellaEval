@@ -4,6 +4,7 @@ import random
 def read_json(name):
     f = open("vectors.json", "r")
     data = json.load(f)
+    f.close()
     return data[name]
 
 def estetics_in_json(string):                   # makes the json readable before upload
@@ -33,6 +34,9 @@ def training_neural_network():
             error2 = read_json("photosynthetic_activity2")[i]-y2
             w[0]+= 2*error1*read_json("frequency1")[i]*read_json("etha")
             w[1]+= 2*error2*read_json("frequency2")[i]*read_json("etha")
+        print("w1: "+str(w[0])+ "|  w2: "+str(w[1]))
+        if 2 * error1 * read_json("frequency1")[i] * read_json("etha") == 0 and 2 * error2 * read_json("frequency2")[i] * read_json("etha") == 0:
+            return w
     print("final neural weight configuration: "+str(w))
     return w
 
@@ -41,6 +45,8 @@ w = training_neural_network() # setting neural network and train weights 1 and 2
 differences1 = []   # calculate the difference between the calculated photosynthetic_activity and the real photosynthetic_activity (quality check)
 differences2 = []
 photosynthetic_activity_calc = []
+photosynthetic_activity_calc1 = []
+photosynthetic_activity_calc2 = []
 
 for i in range(len(read_json("frequency1"))):
     originalY1 = read_json("photosynthetic_activity1")[i]
@@ -48,6 +54,9 @@ for i in range(len(read_json("frequency1"))):
 
     originalY2 = read_json("photosynthetic_activity2")[i]
     calculatedY2 = read_json("frequency2")[i] * w[0]
+
+    photosynthetic_activity_calc1.append(calculatedY1)
+    photosynthetic_activity_calc2.append(calculatedY2)
     photosynthetic_activity_calc.append(calculatedY1)
     photosynthetic_activity_calc.append(calculatedY2)
 
@@ -66,7 +75,7 @@ for y in photosynthetic_activity_calc: sum_calc_y += y
 
 averageAccuracyPercent = 100 - abs((sum_calc_y/sum_real_y)*100-100)
 
-data = {"linear_regression": {"difference_dataset_1": differences1, "differences_dataset_2": differences2, "average_difference_abs": averageDiff, "average_accuracy": averageAccuracyPercent}}
+data = {"linear_regression": {"photosynthetic_activity_calc1": photosynthetic_activity_calc1, "photosynthetic_activity_calc2": photosynthetic_activity_calc2, "difference_dataset_1": differences1, "differences_dataset_2": differences2, "average_difference_abs": averageDiff, "average_accuracy": averageAccuracyPercent}}
 write_json("accuracy.json", str(data))
 
 print("\nThe difference between the real y and the calculated y:")

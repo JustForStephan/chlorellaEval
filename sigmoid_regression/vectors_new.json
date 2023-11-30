@@ -2,11 +2,11 @@
   "input_current":                            [5e-5, 7.5e-5, 1e-4, 1.5e-4, 2e-4, 2.5e-4, 3.5e-4, 5.5e-4, 8.5e-4, 1.2e-3],
   "photosynthetic_activity_by_input_current": [3.66e-8, 2.87e-7, 4.58e-7, 7.03e-7, 7.48e-7, 6.58e-7, 7.39e-7, 8.06e-7, 7.83e-07, 7.88e-7],
 
-  "frequency":                               [0.5, 1, 2, 4, 6, 8, 10, 12, 15, 20, 25, 50, 0.5, 1, 2, 4, 6, 8, 10, 12, 15, 20, 25, 50],
-  "photosynthetic_activity":                 [3.13e-8, 1.1e-7, 1.41e-7, 1.98e-7, 2.2e-7, 2.46e-7, 3.19e-7, 3.12e-7, 3.43e-7, 3.82e-7, 3.85e-7, 4.07e-7, 3.89e-8, 1.25e-7, 1.06e-7, 1.41e-7, 2.15e-7, 2.74e-7, 2.48e-7, 3.39e-7, 3.91e-7, 3.5e-7, 3.91e-7, 4.23e-7],
-
+  "frequency":                               [0.5, 1, 2, 4, 6, 8, 10, 12, 15, 20, 25, 50],
+  "photosynthetic_activity":                 [3.13e-8, 1.1e-7, 1.41e-7, 1.98e-7, 2.2e-7, 2.46e-7, 3.19e-7, 3.12e-7, 3.43e-7, 3.82e-7, 3.85e-7, 4.07e-7],
+  "photosynthetic_activity2":                [3.89e-8, 1.25e-7, 1.06e-7, 1.41e-7, 2.15e-7, 2.74e-7, 2.48e-7, 3.39e-7, 3.91e-7, 3.5e-7, 3.91e-7, 4.23e-7],
   "constants1": {"current_0": 0.000974,"average": 0.01, "current_average": 0.0000974},
   "constants2": {"current_0": 0.00206, "average":  0.05, "current_average":  0.000103},
-  "running_time_training": 5000,
-  "etha": 0.000001
+  "running_time_training": 10000000,
+  "etha": 0.01
 }

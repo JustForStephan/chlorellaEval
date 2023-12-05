@@ -7,6 +7,6 @@
   "photosynthetic_activity2":                [3.89e-8, 1.25e-7, 1.06e-7, 1.41e-7, 2.15e-7, 2.74e-7, 2.48e-7, 3.39e-7, 3.91e-7, 3.5e-7, 3.91e-7, 4.23e-7],
   "constants1": {"current_0": 0.000974,"average": 0.01, "current_average": 0.0000974},
   "constants2": {"current_0": 0.00206, "average":  0.05, "current_average":  0.000103},
-  "running_time_training": 100000,
+  "running_time_training": 1000,
   "etha": 0.1
 }

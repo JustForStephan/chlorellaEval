@@ -129,9 +129,9 @@ print_properties("current", w_current, scale_factor_x_current)
 print_properties("frequency", w_frequency, scale_factor_x_frequency)
 
 print("safe neural configuration of network:")
-data_current = str({"current": {"weight1/0":w_current[1][0], "weight1/1": w_current[1][1], "weight2/0": w_current[2][0], "weight2/1": w_current[2][1], "weight3":w_current[3][0], "weight4": w_current[4][0], "etha": read_json("vectors_new.json", "etha"), "running_index": read_json("vectors_new.json", "running_time_training"), "scale_factor_x": scale_factor_x_current, "scale_factor_y": scale_factor_y}})
-data_frequency = str({"frequency":{"weight1/0":w_frequency[1][0], "weight1/1": w_frequency[1][1], "weight2/0": w_frequency[2][0], "weight2/1": w_frequency[2][1], "weight3":w_frequency[3][0], "weight4": w_frequency[4][0], "etha": read_json("vectors_new.json", "etha"), "running_index": read_json("vectors_new.json", "running_time_training"), "scale_factor_x": scale_factor_x_frequency, "scale_factor_y": scale_factor_y}})
-data = data_current + data_frequency
+data = {"current": {"weight1/0":w_current[1][0], "weight1/1": w_current[1][1], "weight2/0": w_current[2][0], "weight2/1": w_current[2][1], "weight3":w_current[3][0], "weight4": w_current[4][0], "etha": read_json("vectors_new.json", "etha"), "running_index": read_json("vectors_new.json", "running_time_training"), "scale_factor_x": scale_factor_x_current, "scale_factor_y": scale_factor_y}}
+data_frequency = {"frequency":{"weight1/0":w_frequency[1][0], "weight1/1": w_frequency[1][1], "weight2/0": w_frequency[2][0], "weight2/1": w_frequency[2][1], "weight3":w_frequency[3][0], "weight4": w_frequency[4][0], "etha": read_json("vectors_new.json", "etha"), "running_index": read_json("vectors_new.json", "running_time_training"), "scale_factor_x": scale_factor_x_frequency, "scale_factor_y": scale_factor_y}}
+data.update(data_frequency)
 write_json("neural_config.json", str(data))
 print("finished\n")
 
@@ -166,8 +166,9 @@ write_json("./../accuracy.json", str(data))
 print("finished\n")
 
 mpl.plot(read_json("vectors_new.json", "frequency"), read_json("vectors_new.json", "photosynthetic_activity"))
-mpl.plot(read_json("vectors_new.json", "frequency"), y_frequency)
+mpl.plot(read_json("vectors_new.json", "frequency"), new_frequencies)
 mpl.show()
 mpl.plot(read_json("vectors_new.json", "input_current"), read_json("vectors_new.json", "photosynthetic_activity_by_input_current"))
-mpl.plot(read_json("vectors_new.json", "input_current"), y_current)
+mpl.plot(read_json("vectors_new.json", "input_current"), new_currents)
 mpl.show()
+

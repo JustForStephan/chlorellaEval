@@ -17,3 +17,17 @@ factor 1 | factor 2 | factor 3 | population growth
          |          |          |
          
          
+
+
+
+IMPORTANT LINK: https://www.frontiersin.org/articles/10.3389/fenvs.2021.690191/full
+another table: https://www.sciencedirect.com/science/article/pii/S2772782322000420
+
+Idea to create dataset: with calculated neuronal networks between one factor and the photosynthetic acticity, calculate alot of examples and merge those ones with the same photosynthetic activities
+
+Important dependencies to photosynthetic activity:
+1. CO2 capacity in air
+2. Temperature
+3. Wave lenght     
+4. light frequency OK
+5. light currency  OK

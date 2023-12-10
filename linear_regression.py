@@ -1,5 +1,5 @@
 import json
-import random
+import numpy as np
 
 def read_json(name):
     f = open("vectors.json", "r")
@@ -34,7 +34,6 @@ def training_neural_network():
             error2 = float(read_json("photosynthetic_activity2")[i])-y2
             w[0][0] += float(2*error1*read_json("frequency1")[i])*read_json("etha")
             w[0][1] += float(2*error1*read_json("etha"))
-
             w[1][0] += float(2*error2*read_json("frequency2")[i])*read_json("etha")
             w[1][1] += float(2*error2*read_json("etha"))
         print("-------------------------------------------")
@@ -84,7 +83,7 @@ sum_calc_y = 0
 for y in read_json("photosynthetic_activity1"): sum_real_y += y
 for y in photosynthetic_activity_calc: sum_calc_y += y
 
-averageAccuracyPercent = (sum_calc_y/sum_real_y)*100
+averageAccuracyPercent = 100 - np.abs(sum_calc_y - sum_real_y)/sum_real_y*100
 
 data = {"linear_regression": {"photosynthetic_activity_calc1": photosynthetic_activity_calc1, "photosynthetic_activity_calc2": photosynthetic_activity_calc2, "difference_dataset_1": differences1, "differences_dataset_2": differences2, "average_difference_abs": averageDiff, "average_accuracy": averageAccuracyPercent}}
 write_json("accuracy.json", str(data))

@@ -154,14 +154,43 @@ print("Convert data back")
 for i in range(len(x_frequency)):
     x_frequency[i] = x_frequency[i]/scale_factor_x_frequency
     y_frequency[i] = y_frequency[i]/scale_factor_y
+
 for i in range(len(x_current)):
     x_current[i] = x_current[i]/scale_factor_x_current
     y_current[i] = y_current[i]/scale_factor_y
+
 print("finished\n")
 
+# calc accuracy of network
+print("Calculate accuracy of neural network")
+
+# accuracy for the frequency
+sum_new_frequency = 0
+sum_old_frequency = 0
+for i in range(len(new_frequencies)):
+    sum_new_frequency += new_frequencies[i]
+    sum_old_frequency += y_frequency[i]
+
+divergence_frequency = np.abs(sum_old_frequency - sum_new_frequency)
+divergence_frequency_percentage = divergence_frequency/sum_old_frequency*100
+
+# accuracy for the current
+sum_old_current = 0
+sum_new_current = 0
+for i in range(len(new_currents)):
+    sum_old_current += y_current[i]
+    sum_new_current += new_currents[i]
+
+divergence_current = np.abs(sum_old_current - sum_new_current)
+divergence_current_percentage = divergence_current/sum_old_current*100
+
+accuracy_current = 100 - divergence_current_percentage
+accuracy_frequency = 100 - divergence_frequency_percentage
+print("finished\n")
+
+# safe accuracy and new classified data in math_depiction
 print("Safe test data for mathematical depiction")
 data = {"linear_regression": read_json("./../accuracy.json", "linear_regression")}
-data.update({"sigmoid_regression": {"photosynthetic_activity_calc_current":new_currents, "photosynthetic_activity_calc_frequency": new_frequencies}})
+data.update({"sigmoid_regression": {"photosynthetic_activity_calc_current":new_currents, "photosynthetic_activity_calc_frequency": new_frequencies, "accuracy_frequency": accuracy_frequency, "accuracy_current": accuracy_current}})
 write_json("./../accuracy.json", str(data))
 print("finished\n")
-

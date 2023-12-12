@@ -25,7 +25,7 @@ def training_neural_network():
     w = [[0,0], [0,0]]
 
     print("Start training of neural network:")
-    print("----------------------------------")
+    print("---------------------------------")
     for running_index in range(read_json("running_time_training")):
         for i in range(len(read_json("frequency1"))):
             y1 = float(read_json("frequency1")[i])*w[0][0] +w[0][1]

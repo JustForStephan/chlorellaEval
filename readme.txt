@@ -31,3 +31,7 @@ Important dependencies to photosynthetic activity:
 3. Wave lenght     
 4. light frequency OK
 5. light currency  OK
+
+
+Current development:
+Until today there is no data found, after months of searching. In case that there is no supportment due to any university, it seems to be unavoidable to stop the project. Unless the potential of the planted AI would be useful for scientific achivements.

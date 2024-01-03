@@ -10,11 +10,13 @@ scale_factor_x_frequency = 10e-2
 scale_factor_x_current = 10e2
 scale_factor_y = 10e5
 
-def read_json(file, name):
+def read_json(file, name, for_accuracy):
     f = open(file, "r")
     data = json.load(f)
     f.close()
-    return data[name]
+    if for_accuracy == False:
+        return data["specific_regression_sigmoid"][name]
+    else: return data[name]
 
 def write_json(name, data):
     f = open(name, "w")
@@ -51,7 +53,7 @@ def neural_network_training(x, y, w):
     print("training of neural network:")
 
     # loop for training index
-    for running_index in range(read_json("vectors_new.json", "running_time_training")):
+    for running_index in range(read_json("./../input_data.json", "running_time_training", for_accuracy = False)):
 
         sume = 0.0
         # loop for length of input
@@ -78,7 +80,7 @@ def print_properties(name, w, scale_factor_x):
     print("\nweight 1/0: " + str(w[1][0]) + "   |   weight 1/1: " + str(w[1][1]))
     print("weight 2/0:" + str(w[2][0]) + "   |   weight 2/1:" + str(w[2][1]))
     print("weight 3/0:" + str(w[3][0]) + "   |   weight 4/0:" + str(w[4][0]))
-    print("\neta: " + str(eta)+ "   |   running_index: " + str(read_json("vectors_new.json", "running_time_training")))
+    print("\neta: " + str(eta)+ "   |   running_index: " + str(read_json("./../input_data.json", "running_time_training", for_accuracy = False)))
     print("input_scale: "+ str(scale_factor_x) + "  |   output_scale: " + str(scale_factor_y))
     print("finished\n")
 
@@ -99,11 +101,11 @@ def test_network(x, w):
 
 print("input values gets configurated:")
 
-eta = read_json("vectors_new.json", "etha")
-x_frequency = read_json("vectors_new.json", "frequency")
-y_frequency = read_json("vectors_new.json", "photosynthetic_activity")
-x_current = read_json("vectors_new.json", "input_current")
-y_current = read_json("vectors_new.json", "photosynthetic_activity_by_input_current")
+eta = read_json("./../input_data.json", "etha", for_accuracy = False)
+x_frequency = read_json("./../input_data.json", "frequency", for_accuracy = False)
+y_frequency = read_json("./../input_data.json", "photosynthetic_activity", for_accuracy = False)
+x_current = read_json("./../input_data.json", "input_current", for_accuracy = False)
+y_current = read_json("./../input_data.json", "photosynthetic_activity_by_input_current", for_accuracy = False)
 
 for i in range(len(x_frequency)):
     x_frequency[i] = float(x_frequency[i] * scale_factor_x_frequency)
@@ -129,8 +131,8 @@ print_properties("current", w_current, scale_factor_x_current)
 print_properties("frequency", w_frequency, scale_factor_x_frequency)
 
 print("safe neural configuration of network:")
-data = {"current": {"weight1/0":w_current[1][0], "weight1/1": w_current[1][1], "weight2/0": w_current[2][0], "weight2/1": w_current[2][1], "weight3":w_current[3][0], "weight4": w_current[4][0], "etha": read_json("vectors_new.json", "etha"), "running_index": read_json("vectors_new.json", "running_time_training"), "scale_factor_x": scale_factor_x_current, "scale_factor_y": scale_factor_y}}
-data_frequency = {"frequency":{"weight1/0":w_frequency[1][0], "weight1/1": w_frequency[1][1], "weight2/0": w_frequency[2][0], "weight2/1": w_frequency[2][1], "weight3":w_frequency[3][0], "weight4": w_frequency[4][0], "etha": read_json("vectors_new.json", "etha"), "running_index": read_json("vectors_new.json", "running_time_training"), "scale_factor_x": scale_factor_x_frequency, "scale_factor_y": scale_factor_y}}
+data = {"current": {"weight1/0":w_current[1][0], "weight1/1": w_current[1][1], "weight2/0": w_current[2][0], "weight2/1": w_current[2][1], "weight3":w_current[3][0], "weight4": w_current[4][0], "etha": read_json("./../input_data.json", "etha", for_accuracy = False), "running_index": read_json("./../input_data.json", "running_time_training", for_accuracy = False), "scale_factor_x": scale_factor_x_current, "scale_factor_y": scale_factor_y}}
+data_frequency = {"frequency":{"weight1/0":w_frequency[1][0], "weight1/1": w_frequency[1][1], "weight2/0": w_frequency[2][0], "weight2/1": w_frequency[2][1], "weight3":w_frequency[3][0], "weight4": w_frequency[4][0], "etha": read_json("./../input_data.json", "etha", for_accuracy = False), "running_index": read_json("./../input_data.json", "running_time_training", for_accuracy = False), "scale_factor_x": scale_factor_x_frequency, "scale_factor_y": scale_factor_y}}
 data.update(data_frequency)
 write_json("neural_config.json", str(data))
 print("finished\n")
@@ -140,11 +142,11 @@ new_currents = test_network(x_current, w_current)
 new_frequencies = test_network(x_frequency, w_frequency)
 
 print("real frequency based activity:")
-print(read_json("vectors_new.json", "photosynthetic_activity"))
+print(read_json("./../input_data.json", "photosynthetic_activity", for_accuracy = False))
 print("calculated frequency based activtiy:")
 print(str(new_frequencies))
 print("\nreal current based activity:")
-print(read_json("vectors_new.json", "photosynthetic_activity_by_input_current"))
+print(read_json("./../input_data.json", "photosynthetic_activity_by_input_current", for_accuracy = False))
 print("calculated current based activity:")
 print(str(new_currents))
 print("finished\n")
@@ -190,7 +192,7 @@ print("finished\n")
 
 # safe accuracy and new classified data in math_depiction
 print("Safe test data for mathematical depiction")
-data = {"linear_regression": read_json("./../accuracy.json", "linear_regression")}
+data = {"linear_regression": read_json("./../accuracy.json", "linear_regression", True)}
 data.update({"sigmoid_regression": {"photosynthetic_activity_calc_current":new_currents, "photosynthetic_activity_calc_frequency": new_frequencies, "accuracy_frequency": accuracy_frequency, "accuracy_current": accuracy_current}})
 write_json("./../accuracy.json", str(data))
 print("finished\n")

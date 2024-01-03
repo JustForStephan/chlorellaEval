@@ -8,17 +8,17 @@ def read_json_accuracy(file, model, name):
     f.close()
     return subdata[name]
 
-def read_json(file, name):
+def read_json(file, name, subkey):
     f = open(file, "r")
     data = json.load(f)
     f.close()
-    return data[name]
+    return data[subkey][name]
 
 def lin_regression():
-    input_frequency1 = read_json("vectors.json", "frequency1")
-    input_frequency2 = read_json("vectors.json", "frequency2")
-    output_activity1 = read_json("vectors.json", "photosynthetic_activity1")
-    output_activity2 = read_json("vectors.json", "photosynthetic_activity2")
+    input_frequency1 = read_json("input_data.json", "frequency1", "specific_regression_linear")
+    input_frequency2 = read_json("input_data.json", "frequency2", "specific_regression_linear")
+    output_activity1 = read_json("input_data.json", "photosynthetic_activity1", "specific_regression_linear")
+    output_activity2 = read_json("input_data.json", "photosynthetic_activity2", "specific_regression_linear")
     calc_activity1 = read_json_accuracy("accuracy.json", "linear_regression", "photosynthetic_activity_calc1")
     calc_activity2 = read_json_accuracy("accuracy.json", "linear_regression", "photosynthetic_activity_calc2")
 
@@ -29,12 +29,12 @@ def lin_regression():
     show([input_frequency1, input_frequency2], [calc_activity1, calc_activity2], "Comparison of the results of the neural network", "Frequency of light", "Calculated photosynthetic activity")
 
 def sigmoid_regression():
-    input_frequency = read_json("sigmoid_regression/vectors_new.json", "frequency")
-    natural_activity_frequency = read_json("sigmoid_regression/vectors_new.json", "photosynthetic_activity")
-    calculated_activity_frequency = read_json("accuracy.json", "sigmoid_regression")["photosynthetic_activity_calc_frequency"]
-    input_current = read_json("sigmoid_regression/vectors_new.json", "input_current")
-    natural_activity_current = read_json("sigmoid_regression/vectors_new.json", "photosynthetic_activity_by_input_current")
-    calculated_activity_current = read_json("accuracy.json", "sigmoid_regression")["photosynthetic_activity_calc_current"]
+    input_frequency = read_json("input_data.json", "frequency")
+    natural_activity_frequency = read_json("input_data.json", "photosynthetic_activity", "specific_regression_sigmoid")
+    calculated_activity_frequency = read_json("accuracy.json", "sigmoid_regression", "specific_regression_sigmoid")["photosynthetic_activity_calc_frequency"]
+    input_current = read_json("input_data.json", "input_current", "specific_regression_sigmoid")
+    natural_activity_current = read_json("input_data.json", "photosynthetic_activity_by_input_current", "specific_regression_sigmoid")
+    calculated_activity_current = read_json_accuracy("accuracy.json", "sigmoid_regression", "photosynthetic_activity_calc_current") # ["photosynthetic_activity_calc_current"]
     print(calculated_activity_current)
     print(natural_activity_current)
     show([input_frequency, input_frequency],[natural_activity_frequency, calculated_activity_frequency], "Natural dependency between light frequency and photosynthetic activity in relation to calculation", "Frequency of light in hz", "Photosynthetic activity in mol(O2)/(g*s)")

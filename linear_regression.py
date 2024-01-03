@@ -2,10 +2,10 @@ import json
 import numpy as np
 
 def read_json(name):
-    f = open("vectors.json", "r")
+    f = open("input_data.json", "r")
     data = json.load(f)
     f.close()
-    return data[name]
+    return data["specific_regression_linear"][name]
 
 def estetics_in_json(string):                   # makes the json readable before upload
     string = string.replace("'",'"')

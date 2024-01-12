@@ -29,6 +29,10 @@
 },
 
   "general_regression":{
-
+    "running_time_training": 100,
+    "eta":                   10e-4,
+    "light_intensity":       [0, 1, 2, 3, 4, 5, 6, 7],
+    "ambient_temperature":   [0, 1, 2, 3, 4, 5, 6, 7],
+    "CO2_proportion":        [0, 1, 2, 3, 4, 5, 6, 7]
   }
 }

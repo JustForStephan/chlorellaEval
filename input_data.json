@@ -31,9 +31,9 @@
   "general_regression":{
     "running_time_training": 100,
     "eta":                   10e-4,
-    "light_intensity":       [2500, 2500, 2500, 3000, 3000, 3000],
-    "ambient_temperature":   [25, 25, 25, 30, 30, 30],
-    "CO2_proportion":        [0.31, 0.31, 0.31, 0.39, 0.39, 0.39],
-    "CO2_capture_capacity":  [0.195, 0.225, 0.225, 0.154, 0.412, 0.192]
+    "light_intensity":       [0, 0, 2500, 2500, 2500, 3000, 3000, 3000],
+    "ambient_temperature":   [0, 25, 25, 25, 25, 30, 30, 30],
+    "CO2_proportion":        [0, 0.31, 0.31, 0.31, 0.31, 0.39, 0.39, 0.39],
+    "CO2_capture_capacity":  [0, 0, 0.195, 0.225, 0.225, 0.154, 0.412, 0.192]
   }
 }

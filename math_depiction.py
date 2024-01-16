@@ -29,16 +29,38 @@ def lin_regression():
     show([input_frequency1, input_frequency2], [calc_activity1, calc_activity2], "Comparison of the results of the neural network", "Frequency of light", "Calculated photosynthetic activity")
 
 def sigmoid_regression():
-    input_frequency = read_json("input_data.json", "frequency")
+    input_frequency = read_json("input_data.json", "frequency", "specific_regression_sigmoid")
     natural_activity_frequency = read_json("input_data.json", "photosynthetic_activity", "specific_regression_sigmoid")
-    calculated_activity_frequency = read_json("accuracy.json", "sigmoid_regression", "specific_regression_sigmoid")["photosynthetic_activity_calc_frequency"]
+    calculated_activity_frequency = read_json_accuracy("accuracy.json","sigmoid_regression", "photosynthetic_activity_calc_frequency")
     input_current = read_json("input_data.json", "input_current", "specific_regression_sigmoid")
     natural_activity_current = read_json("input_data.json", "photosynthetic_activity_by_input_current", "specific_regression_sigmoid")
-    calculated_activity_current = read_json_accuracy("accuracy.json", "sigmoid_regression", "photosynthetic_activity_calc_current") # ["photosynthetic_activity_calc_current"]
+    calculated_activity_current = read_json_accuracy("accuracy.json", "sigmoid_regression", "photosynthetic_activity_calc_current")
     print(calculated_activity_current)
     print(natural_activity_current)
     show([input_frequency, input_frequency],[natural_activity_frequency, calculated_activity_frequency], "Natural dependency between light frequency and photosynthetic activity in relation to calculation", "Frequency of light in hz", "Photosynthetic activity in mol(O2)/(g*s)")
     show([input_current, input_current], [natural_activity_current, calculated_activity_current], "Natural dependency between lamp current and photosynthetic activity in relation to calculation", "Current of the lamp in Ampere", "Photosynthetic activity in mol(O2)/(g*s)")
+
+def general_regression():
+    input_light = read_json("input_data.json", "light_intensity", "general_regression")
+    input_co2 = read_json("input_data.json", "CO2_proportion", "general_regression")
+    input_temperature = read_json("input_data.json", "ambient_temperature", "general_regression")
+    output_capacity = read_json("input_data.json", "CO2_capture_capacity", "general_regression")
+
+    mpl = matplotlib.pyplot
+    mpl.plot(input_light, output_capacity, "o")
+    mpl.plot(input_light, output_capacity)
+    mpl.show()
+
+    mpl1 = matplotlib.pyplot
+    mpl1.plot(input_temperature, output_capacity, "o")
+    mpl1.plot(input_temperature, output_capacity)
+    mpl1.show()
+
+
+    mpl2 = matplotlib.pyplot
+    mpl2.plot(input_co2, output_capacity, "o")
+    mpl2.plot(input_co2, output_capacity)
+    mpl2.show()
 
 # func that shot plot
 def show(x, y, title, xLabel, yLabel):
@@ -55,6 +77,8 @@ def show(x, y, title, xLabel, yLabel):
 # asks for regression model
 regression_model = ""
 while True:
+    if regression_model == "general_regression":
+        break
     try:
         regression_model = input("Enter the regression model you want to analyse:")
         f = open("accuracy.json", "r")
@@ -68,3 +92,5 @@ if regression_model == "linear_regression":
     lin_regression()
 if regression_model == "sigmoid_regression":
     sigmoid_regression()
+if regression_model == "general_regression":
+    general_regression()

@@ -70,7 +70,7 @@ eta = read_input("./../input_data.json", "general_regression", "eta")
 for running_index in range(read_input("./../input_data.json", "general_regression", "running_time_training")):
     for x in range(len(input_temp)):
         calc_network(x)
-        print(str(x)+":"+str(o.y))
+        print(str(running_index)+":"+str(o.y))
 
         error = y_data[x] - o.y
 
@@ -117,10 +117,11 @@ for x in range(len(input_temp)):
     calc_network(x)
     network_output.append(o.y)
 print(network_output)
+
 print("- storage data")
 data = {"linear_regression": read_accuracy("linear_regression")}
 data.update({"sigmoid_regression": read_accuracy("sigmoid_regression")})
-new_data = {"input_light": input_light.tolist(), "input_co2": input_co2.tolist(), "input_temp": input_temp.tolist(), "network_capacity": network_output, "natural_capacity": y_data}
+new_data = {"input_light": read_input("./../input_data.json", "general_regression", "light_intensity"), "input_co2": read_input("./../input_data.json", "general_regression", "CO2_proportion"), "input_temp": read_input("./../input_data.json", "general_regression", "ambient_temperature"), "network_capacity": network_output, "natural_capacity": y_data}
 data.update({"general_regression": new_data})
 write_json("./../accuracy.json", str(data))
 print("finished")

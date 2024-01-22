@@ -2,7 +2,7 @@ import numpy as np
 
 class neuron:
 
-    def __init__(self, x, w):
+    def __init__(self):
         self.z = None
         self.y = None
 

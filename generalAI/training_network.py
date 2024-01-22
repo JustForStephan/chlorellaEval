@@ -14,6 +14,11 @@ def read_accuracy(key):
     f.close()
     return data[key]
 
+def read_weights(key):
+    f = open("./../weights.json")
+    data = json.load(f)
+    return data[key]
+
 def write_json(name, data):
     f = open(name, "w")
     f.write(estetics_in_json(data))
@@ -47,14 +52,14 @@ hw = np.random.random((4, 2))
 ow = np.random.random((2, 1))
 
 # declare scale factor
-print("- define scale factors")
+print("\ndefine scale factors")
 scale_light = 10.0e-5
 scale_CO2 = 1.0
 scale_temp = 1.0/100
-print("finished")
+print("---> finished")
 
 # declare input data
-print("- load input data")
+print("\nload input data")
 input_light = np.dot(read_input("./../input_data.json", "general_regression", "light_intensity"),scale_light)
 input_co2 = np.dot(read_input("./../input_data.json", "general_regression", "CO2_proportion"),scale_CO2)
 input_temp = np.dot(read_input("./../input_data.json", "general_regression", "ambient_temperature"),scale_temp)
@@ -62,15 +67,15 @@ y_data = read_input("./../input_data.json", "general_regression", "CO2_capture_c
 print("scaled light: " + str(input_light[5]))
 print("scaled CO2-proportion: " + str(input_co2[5]))
 print("scaled temperature: " + str(input_temp[5]))
-print("finished")
+print("---> finished")
 
 # adapt weights
-print("- start training of network")
+print("\nstart training of network")
 eta = read_input("./../input_data.json", "general_regression", "eta")
 for running_index in range(read_input("./../input_data.json", "general_regression", "running_time_training")):
+    print(str(running_index) + ":" + str(o.y))
     for x in range(len(input_temp)):
         calc_network(x)
-        print(str(running_index)+":"+str(o.y))
 
         error = y_data[x] - o.y
 
@@ -109,7 +114,7 @@ for running_index in range(read_input("./../input_data.json", "general_regressio
         iw[3][2] += (2*error*o.y*(1-o.y) * ow[0] * h1.y * (1-h1.y) * hw[2][0] * i3.y * (1-i3.y) + 2*error*o.y*(1-o.y) * ow[1] * h2.y * (1-h2.y) * hw[2][1] * i3.y * (1-i3.y)) * eta
         iw[3][3] += (2*error*o.y*(1-o.y) * ow[0] * h1.y * (1-h1.y) * hw[3][0] * i4.y * (1-i4.y) + 2*error*o.y*(1-o.y) * ow[1] * h2.y * (1-h2.y) * hw[3][1] * i4.y * (1-i4.y)) * eta
 
-print("finished")
+print("---> finished")
 
 # calc network output for all given inputs
 network_output = []
@@ -118,10 +123,17 @@ for x in range(len(input_temp)):
     network_output.append(o.y)
 print(network_output)
 
-print("- storage data")
+print("\nstorage data")
 data = {"linear_regression": read_accuracy("linear_regression")}
 data.update({"sigmoid_regression": read_accuracy("sigmoid_regression")})
 new_data = {"input_light": read_input("./../input_data.json", "general_regression", "light_intensity"), "input_co2": read_input("./../input_data.json", "general_regression", "CO2_proportion"), "input_temp": read_input("./../input_data.json", "general_regression", "ambient_temperature"), "network_capacity": network_output, "natural_capacity": y_data}
 data.update({"general_regression": new_data})
 write_json("./../accuracy.json", str(data))
-print("finished")
+print("---> finished")
+
+print("\nsafe neural configuration")
+data = {"linear_regression": read_weights("linear_regression")}
+general_config = {"iw": iw.tolist(), "hw": hw.tolist(), "ow": ow.tolist()}
+data.update({"general_regression": general_config})
+write_json("./../weights.json", str(data))
+print("---> finished")

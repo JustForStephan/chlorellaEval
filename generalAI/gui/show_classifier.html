@@ -1,0 +1,54 @@
+<html class ="html">
+    <head>
+        <title>Chlorella Evaluation Project</title>
+        <meta charset = "utf-8">
+        <link rel = "stylesheet" href = "style.css">
+    </head>    
+    <body>
+        <div id = "navBar">
+            <a id = "active_navElement" href = "show_classifier.html">Startseite</a>
+            <a class="navElement" href = "theoretical_input">Theoretischer Hintergrund</a>
+            <a class = "navElement" href = "about_authors.html">Über die Autoren</a>
+        </div>
+
+        <h1 class = "headline">Chlorella Evaluation Project</h1>
+        <h2 class = "subheadline"> Eine künstliche Intelligenz zur Berechnung der Kohlenstoffdioxid-Aufnahmefähigkeit der Chlorella Alge</h2>
+        <section id = "calculation_section">
+            <br><br><br><br>
+            <h1 class = "subheadline"> Berechnung der Kohlenstoffdioxid-Aufnahmefähigkeit</h1>
+            <div id = "input">
+                <div class="slidecontainer">
+                    <h2 class = "description_slidecontainer">Die Lichtintensität in Lux</h2>
+                    <input type="range" min="1" max="4000" value="50" class="slider" id="myRange_light">
+                    <p class = "startval">Minimum: 0 Lux</p>
+                    <p id="actualval_light"></p>
+                    <p class = "endval">Maximum: 4000 Lux</p> 
+                </div>
+                
+                <div class="slidecontainer">
+                    <h2 class = "description_slidecontainer">Der Kohlenstoffdioxidanteil der Luft in Volumenprozent</h2>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="myRange_co2">
+                    <p class = "startval">Minimum: 0 %</p>
+                    <p id="actualval_co2"></p>
+                    <p class = "endval">Maximum: 100 %</p>
+                </div>
+                
+                <div class="slidecontainer">
+                    <h2 class ="description_slidecontainer">Die Temperatur in °C</h2>
+                    <input type="range" min="0" max="30" value="50" class="slider" id="myRange_temp">
+                    <p class = "startval">Minimum: 0 °C</p>
+                    <p id="actualval_temp"></p>
+                    <p class = "endval">Maximum: 30 °C</p>
+                </div>
+            </div>
+            <div id = "calculation_result">
+                <h2 class = "headline_result">Kohlenstoffdioxid-Aufnahmekapazität:</h2>
+                <div class = "ambient_result">
+                    <h1 id = "result">1%</h1>
+                </div>
+            </div>
+        </section>
+    </body>
+    <script type = "text/javascript" src= "backend.js"></script>
+    
+</html>

@@ -17,3 +17,5 @@ Prof. Dr. Dr. Haim Trebes (Max Plank institute of algae research)
 Checklist:
 1. Preparation                  OK
 2. Implementation Learning      OK
+3. Implementation Classifier    OK
+4. Implementation GUI

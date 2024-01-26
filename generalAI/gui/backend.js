@@ -1,4 +1,4 @@
-import data from "./result.json"
+//var c = require('./example');
 
 // for the light slidecontainer
 var slider_light = document.getElementById("myRange_light");
@@ -17,33 +17,52 @@ output_temp.innerHTML = slider_temp.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
 slider_light.oninput = function() {
+  runPythonScript('./../classifier.py', [output_light, output_co2, output_temp]);
+  document.getElementById("result").innerHTML = "result";
+
   output_light.innerHTML = this.value;
-  request_to_classifier(output_light, output_co2, output_temp)
-  var result = read_json()
-  document.getElementById("result").innerHTML = result
-} 
-slider_co2.oninput = function() {
-    output_co2.innerHTML = this.value;
-    request_to_classifier(output_light, output_co2, output_temp)
-    var result = read_json()
-    document.getElementById("result").innerHTML = result
-  } 
-slider_temp.oninput = function() {
-    output_temp.innerHTML = this.value;
-    request_to_classifier(output_light, output_co2, output_temp)
-    var result = read_json()
-    document.getElementById("result").innerHTML = result
+  var result = read_json();
 } 
 
-function request_to_classifier(light, co2, temp){
-    $.ajax({
-        url: './../classifier.py',
-        data: {param: {light, co2, temp}},
-        type: 'POST',
-      }).done(function() {
-       /* Process the data */
-     });
+slider_co2.oninput = function() {
+    output_co2.innerHTML = this.value;
+    runPythonScript('./../classifier.py', [output_light, output_co2, output_temp]);
+    var result = read_json();
+    document.getElementById("result").innerHTML = result;
+  }
+
+slider_temp.oninput = function() {
+    output_temp.innerHTML = this.value;
+    runPythonScript('./../classifier.py', [output_light, output_co2, output_temp]);
+    var result = read_json();
+    document.getElementById("result").innerHTML = result;
+} 
+
+// Run a Python script and return output
+function runPythonScript(scriptPath, args) {
+
+  // Use child_process.spawn method from 
+  // child_process module and assign it to variable
+  const pyProg = spawn('python', [scriptPath].concat(args));
+
+  // Collect data from script and print to console
+  let data = '';
+  pyProg.stdout.on('data', (stdout) => {
+    data += stdout.toString();
+  });
+
+  // Print errors to console, if any
+  pyProg.stderr.on('data', (stderr) => {
+    console.log(`stderr: ${stderr}`);
+  });
+
+  // When script is finished, print collected data
+  pyProg.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
+    console.log(data);
+  });
 }
+
 function read_json(){
-    return data["result"]
+  return require("./result.json")["data"];
 }

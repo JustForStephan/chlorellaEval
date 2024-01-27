@@ -1,37 +1,21 @@
-The ClorellaEval algorithm
---------------------------
+The general AI takes 3 different ambient conditions of the clorella algae into account to calculate a specific carbon capture capacity.
+The used ambient conditions are:
 
-The population development of chlorella algaes is a very complex issue, which depends on several factors like the CO2-intensity of the ambient, the avaiability of water, the temperature and the light intensity.
-To figgure out the effect of different dependency factors, goal is to implement a AI.
+1.  The Ambient temperature (in Grad Celsius)
+2.  The CO2-proportion of the air (in abs numbers between 0 and 1)
+3.  The light intensity ( in LUX)
 
-This AI is using a dataset to adapt the weights for every specific factor.
-After training, the AI should be able to simulate the population of chlorellas with different factors.
+The outcome:
+-> The CO2-capture capacity (in abs numbers between 0 and 1)
 
+The data which is used is not avaiable, but there is the possibility to generate the data due to algorithms. The profound data is coming from:
 
-The dataset is structured like this:
+Prof. Dr. Dr. Haim Trebes (Max Plank institute of algae research)
 
-factor 1 | factor 2 | factor 3 | population growth
----------------------------------------------------
-23       |546       |32542     |        2
-54       |-1        |-23       |        -10
-         |          |          |
-         
-         
+------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-IMPORTANT LINK: https://www.frontiersin.org/articles/10.3389/fenvs.2021.690191/full
-another table: https://www.sciencedirect.com/science/article/pii/S2772782322000420
-
-Idea to create dataset: with calculated neuronal networks between one factor and the photosynthetic acticity, calculate alot of examples and merge those ones with the same photosynthetic activities
-
-Important dependencies to photosynthetic activity:
-1. CO2 capacity in air
-2. Temperature
-3. Wave lenght     
-4. light frequency OK
-5. light currency  OK
-
-
-Current development:
-Until today there is no data found, after months of searching. In case that there is no supportment due to any university, it seems to be unavoidable to stop the project. Unless the potential of the planted AI would be useful for scientific achivements.
+Checklist:
+1. Preparation                  OK
+2. Implementation Learning      OK
+3. Implementation Classifier    OK
+4. Implementation GUI -> Problem: Cant implement nodejs into web application

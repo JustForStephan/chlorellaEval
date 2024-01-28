@@ -1,3 +1,6 @@
+This project made for my school exam. Goal is, to evaluate the chlorella algae as a possibiliy for world wide carbon capture. The usage of these algeas in technological optimazed ambients could appear as an attractive method to slow down the climate change.
+To achieve an accurate evaluation, the goal of this project is to train an artificial intelligence (AI).
+
 The general AI takes 3 different ambient conditions of the clorella algae into account to calculate a specific carbon capture capacity.
 The used ambient conditions are:
 

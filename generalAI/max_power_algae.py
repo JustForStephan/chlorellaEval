@@ -1,7 +1,15 @@
 from neurons import neuron
 import json
-# create input data shapes
 
+def estetics_in_json(string):                   # makes the json readable before upload
+    string = string.replace("'",'"')
+    string = string.replace("],","],\n")
+    string = string.replace("{","{\n")
+    string = string.replace("}", "\n}")
+    string = string.replace(', "',',\n"')
+    return string
+
+# create input data shapes
 input_light = []
 input_co2 = []
 input_temp = []
@@ -9,7 +17,7 @@ input_temp = []
 actual_light_val = 0
 actual_co2_val = 0
 actual_temp_val = 0
-index = 1000
+index = 100
 
 for i in range(index):
     actual_light_val += 4000/index * 10.0e-5
@@ -59,3 +67,11 @@ highest_conditions[2] = highest_conditions[1]*100
 print("Algorithm finished:")
 print("Highest output: "+ str(highest_output))
 print("highest conditions " + str(highest_conditions))
+
+f = open("./../accuracy.json", "r")
+data = json.load(f)
+f.close()
+data.update({"max_classification": {"max_capacity": highest_output, "max_conditions": highest_conditions}})
+
+f = open("./../accuracy.json", "w")
+f.write(estetics_in_json(str(data)))

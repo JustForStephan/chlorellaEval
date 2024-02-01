@@ -40,5 +40,5 @@ def run(request={}):
     print("---> finished")
 
     # storage result in json
-    data = {"result": round(o.y*100, 1)}
+    data = {"result": round(o.y, 2)}
     return json.dumps(data)

@@ -2,33 +2,16 @@ import numpy as np
 import json
 from neurons import neuron
 import sys
-import tkinter as tk
-
-class gui():
-
-    fontcolor = "white"
-    backgroundcolor = "green"
-    size = "200x200"
-
-    def __init__(self):
-        root = tk.Tk()
-        root.title("Chlorella Evaluation Algorithm")
-        root.geometry(self.size)
-        gui.configure(bg = self.backgroundcolor)
-        root.mainloop()
 
 # read weights
 print("load data")
-#input_light = float(sys.argv[1])
-#input_co2 = float(sys.argv[2])
-#input_temp = float(sys.argv[3])
-
-input_light = 1
-input_co2 = 1
-input_temp = 1
+input_light = float(sys.argv[1])
+input_co2 = float(sys.argv[2])
+input_temp = float(sys.argv[3])
 
 f = open("./../weights.json")
 data = json.load(f)
+f.close()
 iw = data["general_regression"]["iw"]
 hw = data["general_regression"]["hw"]
 ow = data["general_regression"]["ow"]
@@ -58,8 +41,12 @@ h2.update([i1.y, i2.y, i3.y, i4.y], [hw[0][1], hw[1][1], hw[2][1], hw[3][1]])
 o.update([h1.y, h2.y], [ow[0][0], ow[1][0]])
 print("---> finished")
 
+# storage result in json
+h = open("./gui/result.json", "w")
+data = {"result": o.y}
+h.write((str(data)))
+h.close()
 print("\n-------------------------------------------------------")
 print("The resulting CO2-capture capacity has been calculated:")
 print("y_out = "+ str(o.y) + " in V%")
 print("---> algorithm finished")
-window = gui()

@@ -23,7 +23,7 @@ for i in range(index):
     actual_light_val += 4000/index * 10.0e-5
     input_light.append(actual_light_val)
 
-    actual_co2_val += 0.2/index
+    actual_co2_val += 1/index
     input_co2.append((actual_co2_val))
 
     actual_temp_val += 30/index * 1.0/100
@@ -58,6 +58,8 @@ for x in range(index):
             h1.update([i1.y, i2.y, i3.y, i4.y], [hw[0][0], hw[1][0], hw[2][0], hw[3][0]])
             h2.update([i1.y, i2.y, i3.y, i4.y], [hw[0][1], hw[1][1], hw[2][1], hw[3][1]])
             o.update([h1.y, h2.y], [ow[0][0], ow[1][0]])
+
+            print("actual output: "+ str(o.y))
 
             if o.y > highest_output:
                 highest_output = o.y

@@ -56,6 +56,7 @@ print("\ndefine scale factors")
 scale_light = 10.0e-5
 scale_CO2 = 1.0
 scale_temp = 1.0/100
+scale_output = 0.1
 print("---> finished")
 
 # declare input data
@@ -63,7 +64,7 @@ print("\nload input data")
 input_light = np.dot(read_input("./../input_data.json", "general_regression", "light_intensity"),scale_light)
 input_co2 = np.dot(read_input("./../input_data.json", "general_regression", "CO2_proportion"),scale_CO2)
 input_temp = np.dot(read_input("./../input_data.json", "general_regression", "ambient_temperature"),scale_temp)
-y_data = read_input("./../input_data.json", "general_regression", "CO2_capture_capacity")
+y_data = np.dot(read_input("./../input_data.json", "general_regression", "CO2_capture_capacity"), scale_output)
 print("scaled light: " + str(input_light[5]))
 print("scaled CO2-proportion: " + str(input_co2[5]))
 print("scaled temperature: " + str(input_temp[5]))
@@ -120,7 +121,7 @@ print("---> finished")
 network_output = []
 for x in range(len(input_temp)):
     calc_network(x)
-    network_output.append(o.y)
+    network_output.append(o.y/scale_output)
 print(network_output)
 
 print("\nstorage data")

@@ -1,0 +1,21 @@
+<h1> hallo ich bin der index </h1>
+
+
+
+<input type="text" id="adolf">
+<button onclick="load_light()"> Load Light </button>
+
+<h3 id="output"> </h3>
+
+
+<script>
+
+	async function load_light()  {
+		var lightV = adolf.value
+		const response = await fetch("load_data.html?light="+lightV);
+		const json = await response.json();
+		console.log(json)
+		output.innerHTML  = json["light"]
+	}
+
+</script>

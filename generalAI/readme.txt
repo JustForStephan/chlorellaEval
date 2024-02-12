@@ -18,4 +18,4 @@ Checklist:
 1. Preparation                  OK
 2. Implementation Learning      OK
 3. Implementation Classifier    OK
-4. Implementation GUI
+4. Implementation GUI -> Problem: Cant implement nodejs into web application
